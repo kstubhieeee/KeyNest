@@ -66,7 +66,7 @@ const Manager = () => {
                 <h1 className='text-4xl text font-bold text-center'>
                     <span className='text-green-500'> &lt;</span>
 
-                    <span>Pass</span><span className='text-green-500'>OP/&gt;</span>
+                    <span>KeyNest</span><span className='text-green-500'>/&gt;</span>
 
                 </h1>
                 <p className='text-green-900 text-lg text-center'>Your own Password Manager</p>
@@ -97,13 +97,40 @@ const Manager = () => {
                         {/* submit button */}
 
 
-                        <button onClick={savePassword} className="className='flex justify-center items-center gap-2 bg-green-400 hover:bg-green-300 rounded-full px-8 py-2 w-fit border border-green-900'">
+                        <button onClick={savePassword} className="flex justify-center items-center gap-2 bg-green-400 hover:bg-green-300 rounded-full px-8 py-2 w-fit border border-green-900">
                             <lord-icon
                                 src="https://cdn.lordicon.com/jgnvfzqg.json"
                                 trigger="hover" >
                             </lord-icon>
                             Add Password</button>
                     </div>
+                </div>
+                <div className="passwords">
+                    <h2 className="font-bold text-2xl py-4">Passwords</h2>
+                    {passwordArray.length === 0 && <div>No passwords to show</div>}
+                    {passwordArray.length !== 0 &&
+                        <table className=" table-auto w-full overflow-hidden rounded-lg">
+                            <thead className="bg-green-800 text-white">
+                                <tr>
+                                    <th className="px-4 py-2">Site</th>
+                                    <th className="px-4 py-2">Username</th>
+                                    <th className="px-4 py-2">Passwords</th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-green-100">
+                                {passwordArray.map((item, position) => {
+                                    return (
+                                        <tr key={position}>
+                                            <td className="text-center border-white w-32 border px-4 py-2">{item.site}</td>
+                                            <td className="text-center border-white w-32 border px-4 py-2">{item.username}</td>
+                                            <td className="text-center border-white w-32 border px-4 py-2">{item.password}</td>
+                                        </tr>
+                                    );
+                                })}
+
+
+                            </tbody>
+                        </table>}
                 </div>
             </div>
 
