@@ -2,6 +2,8 @@
 import React, { useRef } from "react"
 import { useEffect } from "react"
 import { useState } from "react"
+import { ToastContainer, toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 const Manager = () => {
 
@@ -34,20 +36,54 @@ const Manager = () => {
             passwordRef.current.type = "text"
 
         }
+
     }
 
     const savePassword = () => {
-        setPasswordArray([...passwordArray, form])
-        localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]))
+        setPasswordArray([...passwordArray, { ...form, id: uuidv4() }])
+        localStorage.setItem("passwords", JSON.stringify([...passwordArray, { form, id: uuidv4() }]))
         console.log(passwordArray);
+    }
+
+    const deletePassword = () => {
+
     }
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
 
+    const copyText = (text) => {
+        toast('Copied to clipboard', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+        navigator.clipboard.writeText(text);
+
+    }
+
     return (
+
         <div>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+
+            />
             <div
                 className="absolute inset-0 -z-10 h-full w-full bg-white 
          bg-[linear-gradient(to_right, #8080800a_1px, transparent_1px), 
@@ -109,21 +145,72 @@ const Manager = () => {
                     <h2 className="font-bold text-2xl py-4">Passwords</h2>
                     {passwordArray.length === 0 && <div>No passwords to show</div>}
                     {passwordArray.length !== 0 &&
-                        <table className=" table-auto w-full overflow-hidden rounded-lg">
+                        <table className="mb-4 table-auto w-full overflow-hidden rounded-lg">
                             <thead className="bg-green-800 text-white">
                                 <tr>
                                     <th className="px-4 py-2">Site</th>
                                     <th className="px-4 py-2">Username</th>
                                     <th className="px-4 py-2">Passwords</th>
+                                    <th className="px-4 py-2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="bg-green-100">
                                 {passwordArray.map((item, position) => {
                                     return (
                                         <tr key={position}>
-                                            <td className="text-center border-white w-32 border px-4 py-2">{item.site}</td>
-                                            <td className="text-center border-white w-32 border px-4 py-2">{item.username}</td>
-                                            <td className="text-center border-white w-32 border px-4 py-2">{item.password}</td>
+                                            <td className="text-center border-white w-32 border px-4 py-2">
+                                                <div className="flex items-center justify-center">
+
+                                                    <span>{item.site}</span>
+                                                    <div className='size-7 cursor-pointer' onClick={() => { copyText(item.site) }}>
+                                                        <img
+                                                            style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px", "marginLeft": "10px" }}
+                                                            src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png"
+                                                            alt="" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="text-center border-white w-32 border px-4 py-2">
+                                                <div className="flex items-center justify-center">
+
+                                                    <span>{item.username}</span>
+                                                    <div className='size-7 cursor-pointer' onClick={() => { copyText(item.username) }}>
+                                                        <img
+                                                            style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px", "marginLeft": "10px" }}
+                                                            src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png"
+                                                            alt="" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="text-center border-white w-32 border px-4 py-2">
+                                                <div className="flex items-center justify-center">
+
+                                                    <span>{item.password}</span>
+                                                    <div className='size-7 cursor-pointer' onClick={() => { copyText(item.password) }}>
+                                                        <img
+                                                            style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px", "marginLeft": "10px" }}
+                                                            src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png"
+                                                            alt="" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="text-center border-white w-32 border px-4 py-2">
+                                                <div className="flex items-center justify-center">
+                                                    <div className='size-7 cursor-pointer' >
+                                                        <img
+                                                            style={{ "mixBlendMode": "multiply", "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px", "marginLeft": "10px" }}
+                                                            src="https://e7.pngegg.com/pngimages/461/1024/png-clipart-computer-icons-editing-edit-icon-cdr-angle-thumbnail.png"
+                                                            alt="" />
+                                                    </div>
+                                                    <div className='size-7 cursor-pointer' >
+                                                        <img
+                                                            style={{ "mixBlendMode": "multiply", "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px", "marginLeft": "15px" }}
+                                                            src="https://w7.pngwing.com/pngs/29/45/png-transparent-delete-key-logo-button-text-rectangle-logo-thumbnail.png"
+                                                            alt="" />
+                                                    </div>
+                                                </div>
+                                            </td>
+
                                         </tr>
                                     );
                                 })}
