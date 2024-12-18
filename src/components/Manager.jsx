@@ -15,6 +15,7 @@ const Manager = () => {
 
 
     useEffect(() => {
+        let req = fetch("http://localhost:3000/")
         let passwords = localStorage.getItem("passwords")
         if (passwords) {
             setPasswordArray(JSON.parse(passwords))
