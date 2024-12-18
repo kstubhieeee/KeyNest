@@ -46,7 +46,26 @@ const Manager = () => {
     }
 
     const deletePassword = (id) => {
-        console.log(id);
+        // console.log(id);
+        let del = confirm("Do you want to delete the credentials ?")
+        if (del) {
+            setPasswordArray(passwordArray.filter(item => item.id !== id))
+            localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
+            toast('Credentials deleted', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+
+    const editPassword = (id) => {
+        // console.log(id);
 
     }
 
@@ -201,7 +220,11 @@ const Manager = () => {
                                                         <img
                                                             style={{ "mixBlendMode": "multiply", "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px", "marginLeft": "10px" }}
                                                             src="https://e7.pngegg.com/pngimages/461/1024/png-clipart-computer-icons-editing-edit-icon-cdr-angle-thumbnail.png"
-                                                            alt="" />
+                                                            alt=""
+                                                            onClick={() => {
+                                                                editPassword(item.id)
+                                                            }}
+                                                        />
                                                     </div>
                                                     <div className='size-7 cursor-pointer' >
                                                         <img
