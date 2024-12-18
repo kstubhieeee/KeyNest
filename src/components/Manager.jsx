@@ -41,11 +41,12 @@ const Manager = () => {
 
     const savePassword = () => {
         setPasswordArray([...passwordArray, { ...form, id: uuidv4() }])
-        localStorage.setItem("passwords", JSON.stringify([...passwordArray, { form, id: uuidv4() }]))
+        localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
         console.log(passwordArray);
     }
 
-    const deletePassword = () => {
+    const deletePassword = (id) => {
+        console.log(id);
 
     }
 
@@ -206,7 +207,11 @@ const Manager = () => {
                                                         <img
                                                             style={{ "mixBlendMode": "multiply", "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px", "marginLeft": "15px" }}
                                                             src="https://w7.pngwing.com/pngs/29/45/png-transparent-delete-key-logo-button-text-rectangle-logo-thumbnail.png"
-                                                            alt="" />
+                                                            alt=""
+                                                            onClick={() => {
+                                                                deletePassword(item.id)
+                                                            }}
+                                                        />
                                                     </div>
                                                 </div>
                                             </td>
