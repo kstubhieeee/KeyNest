@@ -28,7 +28,7 @@ KeyNest is a modern, secure password manager built with React and MongoDB, featu
 ## 📁 Project Structure
 
 ```
-keynest/
+KeyNest/
 ├── backend/
 │   ├── server.js          # Express server setup
 │   └── .env              # Environment variables
@@ -75,7 +75,7 @@ keynest/
 4. **Start the development servers**
    ```bash
    # Start backend server (from backend directory)
-   npm run dev
+   node server.js
 
    # Start frontend development server (from root directory)
    npm run dev
@@ -115,14 +115,6 @@ keynest/
 - Secure API endpoints
 - CORS protection
 - Environment variable usage for sensitive data
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## 📝 License
 
